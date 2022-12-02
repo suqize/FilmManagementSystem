@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 引入db.properties配置 -->
+    <context:property-placeholder location="classpath:db.properties" />
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver}"></property>
+        <property name="jdbcUrl" value="${url}"></property>
+        <property name="user" value="${username}"></property>
+        <property name="password" value="${pass}"></property>
+    </bean>
+
+    <!-- hibernate配置-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    <!-- 引用上面数据源 -->
+<!--    <property name="dataSource" ref="dataSource"/>-->
+<!--    <property name="configLocation" value="classpath:hibernate.cfg.xml"/>-->
+<!--&lt;!&ndash;        <property name="annotatedClasses">&ndash;&gt;-->
+<!--&lt;!&ndash;            <list>&ndash;&gt;-->
+<!--&lt;!&ndash;                <value>com.Film.entity.User</value>&ndash;&gt;-->
+<!--&lt;!&ndash;            </list>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+<!--        <property name="hibernateProperties">-->
+<!--            <props>-->
+<!--                <prop key="hibernate.connection.url">-->
+<!--                    <![CDATA[jdbc:mysql://localhost:3306/film?userUnicode=true& characterEncoding=utf-8]]></prop>-->
+<!--                <prop key="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+    </bean>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+<!--Dao-->
+    <bean id="UserDao" class="com.Film.Dao.UserDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="FilmDao" class="com.Film.Dao.FilmDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="NewsDao" class="com.Film.Dao.NewsDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="FilmTypeDao" class="com.Film.Dao.FilmTypeDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+     </bean>
+<!--Service-->
+    <bean id="UserService" class="com.Film.Service.impl.UserServiceImpl">
+        <property name="userDao" ref="UserDao"/>
+    </bean>
+    <bean id="FilmService" class="com.Film.Service.impl.FilmServiceImpl">
+        <property name="filmDao" ref="FilmDao"/>
+    </bean>
+    <bean id="NewsService" class="com.Film.Service.impl.NewsServiceImpl">
+        <property name="newsDao" ref="NewsDao"/>
+    </bean>
+    <bean id="FilmTypeService" class="com.Film.Service.impl.FilmTypeServiceImpl">
+        <property name="filmTypeDao" ref="FilmTypeDao"/>
+    </bean>
+<!--Entity-->
+    <bean id="User" class="com.Film.entity.User"/>
+    <bean id="Film" class="com.Film.entity.Film"/>
+    <bean id="News" class="com.Film.entity.News"/>
+    <bean id="FilmType" class="com.Film.entity.FilmType"/>
+<!--Action-->
+    <bean id="UserAction" class="com.Film.action.UserAction">
+        <property name="userService" ref="UserService"/>
+        <property name="cookieUtils" ref="CookieUtils"/>
+    </bean>
+    <bean id="AllClient" class="com.Film.action.AllClientAction">
+        <property name="UserService" ref="UserService"/>
+    </bean>
+    <bean id="AllFilm" class="com.Film.action.FilmAction">
+        <property name="filmService" ref="FilmService"/>
+        <property name="filmTypeService" ref="FilmTypeService"/>
+    </bean>
+    <bean id="Upload" class="com.Film.action.FileUploadAction">
+        <property name="filmService" ref="FilmService"/>
+        <property name="filmTypeService" ref="FilmTypeService"/>
+    </bean>
+    <bean id="NewsAction" class="com.Film.action.NewsAction">
+        <property name="newsService" ref="NewsService"/>
+    </bean>
+    <bean id="FilmTypeAction" class="com.Film.action.FilmTypeAction">
+        <property name="filmTypeService" ref="FilmTypeService"/>
+    </bean>
+<!--Util-->
+    <bean id="CookieUtils" class="com.Film.utils.CookieUtils">
+        <property name="userService" ref="UserService"/>
+    </bean>
+
+<!--图表-->
+    <bean id="Charts" class="com.Film.action.ChartsAction">
+        <property name="filmTypeService" ref="FilmTypeService"/>
+        <property name="newsService" ref="NewsService"/>
+    </bean>
+
+</beans>

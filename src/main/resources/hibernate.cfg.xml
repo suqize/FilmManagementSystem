@@ -1,0 +1,30 @@
+<hibernate-configuration>
+    <session-factory>
+        <!--  1.配置数据库连接的4个参数  -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/film?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">13721313703</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!--防挂-->
+        <property name="hibernate.c3p0.max_size">500</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.max_statements">1000</property>
+        <property name="hibernate.c3p0.idle_test_period">30000</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.validate">false</property>
+
+        <!-- 显示SQL语句 -->
+        <property name="show_sql">false</property>
+        <!-- 格式化SQL语句 -->
+        <property name="format_sql">false</property>
+        <!--解决merge报错-->
+        <property name="hibernate.event.merge.entity_copy_observer">allow</property>
+        <mapping class="com.Film.entity.User"/>
+        <mapping class="com.Film.entity.Film"/>
+        <mapping class="com.Film.entity.News"/>
+        <mapping class="com.Film.entity.FilmType"/>
+    </session-factory>
+</hibernate-configuration>

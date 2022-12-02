@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.multipart.maxSize" value="1000000000" />
+    <package name="default" namespace="/" extends="struts-default">
+<!--        <action name="LookMessageAction" class="Action.LookMessageAction">-->
+<!--            <result name="success">/jsp/lookMessage.jsp</result>-->
+<!--            <result name="input">/index.jsp</result>-->
+<!--        </action>-->
+<!--        <action name="addMessageAction" class="Action.AddMessageAction">-->
+<!--            <result name="success" type="chain">LookMessageAction</result>-->
+<!--            <result name="input">/jsp/addMessage.jsp</result>-->
+<!--        </action>-->
+<!--        <action name="findMessageAction" class="Action.FindMessageAction">-->
+<!--            <result name="success">/jsp/updateMessage.jsp</result>-->
+<!--            <result name="input">/jsp/findMessage.jsp</result>-->
+<!--        </action>-->
+<!--        <action name="updateMessageAction" class="Action.UpdateMessageAction">-->
+<!--            <result name="success" type="chain">LookMessageAction</result>-->
+<!--            <result name="input">/jsp/updateMessage.jsp</result>-->
+<!--        </action>-->
+<!--        <action name="deleteMessageAction" class="Action.DeleteMessageAction">-->
+<!--            <result name="success" type="chain">LookMessageAction</result>-->
+<!--            <result name="input">/jsp/deleteMessage.jsp</result>-->
+<!--        </action>-->
+<!--验证码-->
+        <action name="login" class="com.Film.utils.Login_Action">
+            <result name="success">/index.jsp</result>
+            <result name="input">/test/LoginImg.jsp</result>
+        </action>
+        <action name="createImageAction" class="com.Film.utils.CreateImageAction">
+        <result name="success" type="stream">
+            <param name="contentType">image/jpeg</param>
+            <param name="inputName">inputStream</param>
+        </result>
+        </action>
+
+<!--登录-->
+        <action name="LoginAction" class="UserAction" method="Login">
+            <result name="success">/mainface.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+            <result name="input">/index.jsp</result>
+        </action>
+        <action name="RegisterAction" class="UserAction" method="Register">
+            <result name="success">/index.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+            <result name="input">/index.jsp</result>
+        </action>
+        <!--更改密码-->
+        <action name="UpdatePassword" class="UserAction" method="UpdateClient">
+            <result name="success">/mainface.jsp</result>
+            <result name="input">/Clients/UpdatePassword.jsp</result>
+        </action>
+
+<!--用户管理-->
+        <action name="ClientListAction" class="AllClient" method="list">
+            <result name="success">/Clients/list.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--更新用户-->
+        <action name="ClientUpdate" class="UserAction" method="UpdateClient">
+            <result name="success">/Result/Success.jsp</result>
+            <result name="input">/Clients/ClientUpdate.jsp</result>
+            <result name="login">/index.jsp</result>
+        </action>
+        <!--找回密码-->
+        <action name="Forget" class="UserAction" method="Forget">
+            <result name="error">/Clients/Forget.jsp</result>
+            <result name="login">/Clients/GetPassword.jsp</result>
+        </action>
+        <!--查找用户-->
+        <action name="ClientFind" class="UserAction" method="FindClient">
+            <result name="success">/Clients/ClientUpdate.jsp</result>
+            <result name="input">Result/Error.jsp</result>
+            <result name="login">/Clients/UpdatePassword.jsp</result>
+        </action>
+        <!--删除用户-->
+        <action name="DeleteUser" class="UserAction" method="DeleteUser">
+            <result name="success" type="redirectAction">ClientListAction</result>
+            <result name="input" type="redirectAction">ClientFind</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--添加用户-->
+        <action name="AddUser" class="UserAction" method="Register">
+            <result name="success">/Result/Success.jsp</result>
+            <result name="input">/Clients/ClientAdd.jsp</result>
+        </action>
+        <!--搜索用户-->
+        <action name="SeachUser" class="UserAction" method="GetUsers">
+            <result name="success">/Clients/list.jsp</result>
+            <result name="input">/Clients/list.jsp</result>
+        </action>
+        <!--退出用户-->
+        <action name="logout" class="UserAction" method="logout">
+            <result name="success">/index.jsp</result>
+        </action>
+<!--电影管理-->
+        <action name="FilmListAction" class="AllFilm" method="list">
+            <result name="success">/Films/FilmList.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--上传电影-->
+        <action name="FilmUpload" class="Upload" method="uploadFilm">
+            <result name="success" type="redirectAction">FilmListAction</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--电影分类表-->
+        <action name="getAllType" class="FilmTypeAction" method="getAllType">
+            <result name="success">/Films/FilmType.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--各类电影-->
+        <action name="TypeFilms" class="FilmTypeAction" method="TypeFilms">
+            <result name="success">/Films/FilmList.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--查找电影-->
+        <action name="FindFilm" class="AllFilm" method="FindFilm">
+            <result name="success">/Films/FilmList.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--删除电影-->
+        <action name="DeleteFilm" class="AllFilm" method="DeleteFilm">
+            <result name="success" type="redirectAction">FilmListAction</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--ById查找电影-->
+        <action name="FindFilmById" class="AllFilm" method="FindFilmById">
+            <result name="success">/Films/FilmUpdate.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--更新电影-->
+        <action name="UpdateFilm" class="AllFilm" method="UpdateFilm">
+            <result name="success">/Films/FilmUpdate.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--观看电影-->
+        <action name="FilmInfo" class="AllFilm" method="FindFilmById">
+            <result name="success">/Films/FilmInfo.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+<!--新闻管理-->
+        <action name="AllNewsList" class="NewsAction" method="list">
+            <result name="success">/News/NewsList.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--添加新闻-->
+        <action name="NewsPublish" class="NewsAction" method="NewsPublish">
+            <result name="success">/News/NewsPublish.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--更新新闻-->
+        <action name="NewsUpdate" class="NewsAction" method="NewsUpdate">
+            <result name="success">/News/NewsUpdate.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--查找新闻-->
+        <action name="NewsSeach" class="NewsAction" method="NewsSeach">
+            <result name="success">/News/NewsUpdate.jsp</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--删除新闻-->
+        <action name="NewsDelete" class="NewsAction" method="NewsDelete">
+            <result name="success" type="redirectAction">AllNewsList</result>
+            <result name="error">/Result/Error.jsp</result>
+        </action>
+        <!--查找新闻-->
+        <action name="NewsFind" class="NewsAction" method="NewsFind">
+            <result name="success">/News/NewsList.jsp</result>
+            <result name="input">/News/NewsList.jsp</result>
+        </action>
+
+
+<!--图表-->
+        <action name="Charts" class="Charts" method="GetCharts">
+            <result name="success">/pages/right.jsp</result>
+        </action>
+    </package>
+
+
+</struts>

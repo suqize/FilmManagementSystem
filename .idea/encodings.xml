@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/Film/action/UserAction.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/Film/entity/User.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/Echarts/jackson-annotations-2.10.0.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/Echarts/jackson-core-2.10.1.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/Echarts/jackson-databind-2.10.1.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/libs/javax.servlet-api-4.0.1.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/resources/images/filmLogo.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/resources/js/echarts.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/resources/js/echarts.js" charset="GBK" />
+  </component>
+</project>
